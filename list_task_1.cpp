@@ -62,8 +62,7 @@ void insert_after(list*& h, list*& t, list* r, int y) {
 
 }
 
-//удаление элемента после некоторого элемента списка
-void del_node(list*& h, list*& t, list* r) {
+void del_node(list*& h, list*& t, list* r) { //удаление элемента списка
 	if (r == h && r == t) { //удаление единственного элемента списка
 		h = t = NULL;
 	}
@@ -91,8 +90,10 @@ int main() {
 	cin >> n;
 	cout << "Заполните список: \n";
 
+	map<int, bool> m; //хранит информацию для каждого элемента, встречался ли ранее
 	for (int i = 0; i < n; i++) { //заполнение списка
 		cin >> x;
 		push(head, tail, x);
+		m[x] = false;
 	}
 }
