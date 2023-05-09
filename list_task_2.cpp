@@ -55,6 +55,31 @@ void del_node(list*& h, list*& t, list* r) { //удаление элемента
 	delete r;
 }
 
+void delete_average(list*& head, list*& tail) {
+	int average = 0, count = 0;
+	list* p = tail;
+	average += p->inf;
+	count++;
+	p = p->prev;
+	while (p != nullptr) {
+		if (p == head) {
+			if (p->inf > average / count) {
+				head = head->next;
+				head->prev = nullptr;
+				break;
+			}
+		}
+		else {
+			if (p->inf > average / count) {
+				p->next->prev = p->prev;
+				p->prev->next = p->next;
+			}
+			average += p->inf;
+			count++;
+			p = p->prev;
+		}
+	}
+}
 
 int main() {
 	setlocale(LC_ALL, "RUS");
