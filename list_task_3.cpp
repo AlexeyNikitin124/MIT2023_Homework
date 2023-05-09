@@ -73,4 +73,13 @@ int main() {
 		min_elm = min(min_elm, x);
 		push(head, tail, x);
 	}
+
+	list* p = head;
+	while (p != nullptr) {
+		if (p->inf == min_elm) {
+			insert_after(head, tail, p, chet);
+		}
+		p = p->next;
+	}
+
 }
