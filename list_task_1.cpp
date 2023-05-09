@@ -26,15 +26,6 @@ void push(list*& h, list*& t, int x) { //вставка элемента в ко
 	t = r;
 }
 
-list* find(list* h, list* t, int x) { //поиск элемента в списке
-	list* p = h;
-	while (p) {
-		if (p->inf == x) break;
-		p = p->next;
-	}
-	return p;
-}
-
 void print(list* h, list* t) { //печать элементов списка
 	list* p = h;
 	while (p) {
@@ -43,24 +34,6 @@ void print(list* h, list* t) { //печать элементов списка
 	}
 }
 
-//функция вставки элемента после некоторого элемента списка
-void insert_after(list*& h, list*& t, list* r, int y) {
-	list* p = new list;
-	p->inf = y;
-	if (r == t) {
-		p->next = NULL;
-		p->prev = r;
-		r->next = p;
-		t = p;
-	}
-	else {
-		r->next->prev = p;
-		p->next = r->next;
-		p->prev = r;
-		r->next = p;
-	}
-
-}
 
 void del_node(list*& h, list*& t, list* r) { //удаление элемента списка
 	if (r == h && r == t) { //удаление единственного элемента списка
@@ -116,4 +89,7 @@ int main() {
 		push(head, tail, x);
 		m[x] = false;
 	}
+
+	delete_duplicate_elements(head, tail);
+	print(head, tail);
 }
