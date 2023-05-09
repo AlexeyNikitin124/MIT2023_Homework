@@ -2,6 +2,7 @@
  оставив только их последние вхождения. Например, было 1 2 2 1 3 4 5 1 2 5 4 3 5. Стало 1 2 4 3 5.
 */
 #include <iostream>
+#include <map>
 
 using namespace std;
 
@@ -54,20 +55,22 @@ void del_node(list*& h, list*& t, list* r) { //удаление элемента
 	delete r;
 }
 
-void delete_duplicate_elements(list*& head, list*& tail) { //функция, удаляющая повторяющиеся элементы
+//функция, удаляющая повторяющиеся элементы
+void delete_duplicate_elements(list*& head, list*& tail, map<int, bool> m) {
+	list* p = tail;
 	while (p != nullptr) {
 		if (m[p->inf] == false) { // элемент еще не встречался
 			m[p->inf] = true;
 			p = p->prev;
 		}
-		else if (p->prev == nullptr){ // p->prev равен nullptr, т.е. это последний узел в списке
-			list_str* temp = p;
+		else if (p->prev == nullptr) { // p->prev равен nullptr, т.е. это последний узел в списке
+			list* temp = p;
 			p = nullptr;
 			del_node(head, tail, temp);
 			break;
 		}
-		else  (p->prev != nullptr) { // элемент уже встречался, удаляем данный узел, если p->prev не равен nullptr
-			list_str* temp = p;
+		else { // элемент уже встречался, удаляем данный узел, если p->prev не равен nullptr
+			list* temp = p;
 			p = p->prev;
 			del_node(head, tail, temp);
 		}
@@ -90,6 +93,6 @@ int main() {
 		m[x] = false;
 	}
 
-	delete_duplicate_elements(head, tail);
+	delete_duplicate_elements(head, tail, m);
 	print(head, tail);
 }
