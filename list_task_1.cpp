@@ -81,6 +81,26 @@ void del_node(list*& h, list*& t, list* r) { //удаление элемента
 	delete r;
 }
 
+void delete_duplicate_elements(list*& head, list*& tail) { //функция, удаляющая повторяющиеся элементы
+	while (p != nullptr) {
+		if (m[p->inf] == false) { // элемент еще не встречался
+			m[p->inf] = true;
+			p = p->prev;
+		}
+		else if (p->prev == nullptr){ // p->prev равен nullptr, т.е. это последний узел в списке
+			list_str* temp = p;
+			p = nullptr;
+			del_node(head, tail, temp);
+			break;
+		}
+		else  (p->prev != nullptr) { // элемент уже встречался, удаляем данный узел, если p->prev не равен nullptr
+			list_str* temp = p;
+			p = p->prev;
+			del_node(head, tail, temp);
+		}
+	}
+}
+
 int main() {
 	setlocale(LC_ALL, "RUS");
 	list* head = NULL;
