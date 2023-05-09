@@ -3,6 +3,7 @@
 Например, было 2 8 2 1 6 8 8 1 2 2 8 2 1. Стало 2 8 2 1 2 6 8 8 1 2 2 2 8 2 1 2
 */
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -36,8 +37,8 @@ void print(list* h, list* t) { //печать элементов списка
 }
 
 //вставка в список послне некоторого элемента списка
-void insert_after(list_str*& h, list_str*& t, list_str* r, int y) {
-	list_str* p = new list_str;
+void insert_after(list*& h, list*& t, list* r, int y) {
+	list* p = new list;
 	p->inf = y;
 	if (r == t) {
 		p->next = NULL;
@@ -56,19 +57,20 @@ void insert_after(list_str*& h, list_str*& t, list_str* r, int y) {
 
 int main() {
 	setlocale(LC_ALL, "RUS");
-	list_str* head = NULL;
-	list_str* tail = NULL;
+	list* head = NULL;
+	list* tail = NULL;
 	int n, x;
 	cout << "Введите количество элементов списка: ";
 	cin >> n;
 	cout << "Заполните список: \n";
 
-	int chet;
+	int chet, min_elm = 100000000;;
 	for (int i = 0; i < n; i++) { //заполнение списка
 		cin >> x;
 		if (x % 2 == 0) {
 			chet = x;
 		}
+		min_elm = min(min_elm, x);
 		push(head, tail, x);
 	}
 }
