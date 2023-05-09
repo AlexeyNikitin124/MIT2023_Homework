@@ -55,5 +55,20 @@ void insert_after(list_str*& h, list_str*& t, list_str* r, int y) {
 }
 
 int main() {
+	setlocale(LC_ALL, "RUS");
+	list_str* head = NULL;
+	list_str* tail = NULL;
+	int n, x;
+	cout << "Введите количество элементов списка: ";
+	cin >> n;
+	cout << "Заполните список: \n";
 
+	int chet;
+	for (int i = 0; i < n; i++) { //заполнение списка
+		cin >> x;
+		if (x % 2 == 0) {
+			chet = x;
+		}
+		push(head, tail, x);
+	}
 }
