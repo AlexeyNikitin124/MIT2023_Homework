@@ -64,8 +64,9 @@ int main() {
 	cin >> n;
 	cout << "Заполните список: \n";
 
+	//заполнение списка и посик последнего четного и минимального элементов
 	int chet, min_elm = 100000000;;
-	for (int i = 0; i < n; i++) { //заполнение списка
+	for (int i = 0; i < n; i++) { 
 		cin >> x;
 		if (x % 2 == 0) {
 			chet = x;
@@ -75,11 +76,13 @@ int main() {
 	}
 
 	list* p = head;
-	while (p != nullptr) {
-		if (p->inf == min_elm) {
+	while (p != nullptr) { //идем с начала списка
+		//если элемент равен мминимальному, вставялем после него число chet
+		if (p->inf == min_elm) { 
 			insert_after(head, tail, p, chet);
 		}
 		p = p->next;
 	}
 
+	print(head, tail);
 }
