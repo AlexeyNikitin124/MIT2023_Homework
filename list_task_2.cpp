@@ -35,26 +35,6 @@ void print(list* h, list* t) { //печать элементов списка
 	}
 }
 
-
-void del_node(list*& h, list*& t, list* r) { //удаление элемента списка
-	if (r == h && r == t) { //удаление единственного элемента списка
-		h = t = NULL;
-	}
-	else if (r == h) { //удаление первого элемента списка
-		h = h->next;
-		h->prev = NULL;
-	}
-	else if (r == t) { //удаление концевого элемента списка
-		t = t->prev;
-		t->next = NULL;
-	}
-	else { //удаление элемента из середины списка
-		r->next->prev = r->prev;
-		r->prev->next = r->next;
-	}
-	delete r;
-}
-
 void delete_average(list*& head, list*& tail) {
 	int average = 0, count = 0;
 	list* p = tail;
@@ -94,4 +74,7 @@ int main() {
 		cin >> x;
 		push(head, tail, x);
 	}
+
+	delete_average(head, tail);
+	print(head, tail);
 }
