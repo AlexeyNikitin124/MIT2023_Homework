@@ -57,4 +57,16 @@ void del_node(list*& h, list*& t, list* r) { //удаление элемента
 
 
 int main() {
+	setlocale(LC_ALL, "RUS");
+	int x, n;
+	list* head = NULL;
+	list* tail = NULL;
+	cout << "Введите количество элементов списка: ";
+	cin >> n;
+	cout << "Заполните список: \n";
+
+	for (int i = 0; i < n; i++) { //заполнение списка
+		cin >> x;
+		push(head, tail, x);
+	}
 }
