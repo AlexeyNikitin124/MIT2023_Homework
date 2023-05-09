@@ -35,21 +35,22 @@ void print(list* h, list* t) { //печать элементов списка
 	}
 }
 
+//функция, удаляющая элементы так, чтобы список удовлетворял условиям задачи
 void delete_average(list*& head, list*& tail) {
-	int average = 0, count = 0;
+	int average = 0, count = 0; //переменные для подсчета среднего арифметического
 	list* p = tail;
 	average += p->inf;
 	count++;
 	p = p->prev;
-	while (p != nullptr) {
-		if (p == head) {
+	while (p != nullptr) { //идет с конца до начала списка
+		if (p == head) { //если элемент является головой
 			if (p->inf > average / count) {
 				head = head->next;
 				head->prev = nullptr;
 				break;
 			}
 		}
-		else {
+		else { //если элемент находится в середине
 			if (p->inf > average / count) {
 				p->next->prev = p->prev;
 				p->prev->next = p->next;
