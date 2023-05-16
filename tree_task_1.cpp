@@ -20,6 +20,16 @@ tree* node(int x) { //создание узла
 	return n;
 }
 
+void res(tree* tr) { //симметричный обход дерева
+	if (tr) {
+		inorder(tr->left);
+		if (tr->inf % 2 == 0) {
+			Delete(tr, tr);
+		}
+		inorder(tr->right);
+	}
+}
+
 void inorder(tree* tr) { //симметричный обход дерева
 	if (tr) {
 		inorder(tr->left);
@@ -40,9 +50,15 @@ void create(tree*& tr, int n) { //создание дерева
 	}
 }
 
-tree* find(tree* tr, int x) {
-
+tree* find(tree* tr, int x) { //поиск элемента
+	if (!tr || x == tr->inf)
+		return tr;
+	if (x < tr->inf)
+		return find(tr->left, x);
+	else
+		return find(tr->right, x);
 }
+
 tree* Min(tree* tr) { //поиск минимального элемента 
 	if (!tr->left) return tr;
 	else return Min(tr->left);
@@ -53,7 +69,7 @@ tree* Max(tree* tr) { //поиск максимального элемента
 	else return Max(tr->right);
 }
 
-tree *Next(tree *tr, int x) { //поиск следущего элемента дерева
+tree* Next(tree* tr, int x) { //поиск следущего элемента дерева
 	tree* n = find(tr, x);
 	if (n->right)
 		return Min(n->right);
@@ -88,7 +104,7 @@ void Delete(tree*& tr, tree* v) { //удаление узла
 			if (!v->left) { //если есть правый ребенок
 				if (p->left == v)  //если удаляемый узел является левым ребенком
 					p->left = v->right;
-				else  //если удаляемый узел является паравым ребенком
+				else  //если удаляемый узел является правым ребенком
 					p->right = v->right;
 				v->right->parent = p;
 			}
@@ -103,7 +119,19 @@ void Delete(tree*& tr, tree* v) { //удаление узла
 		}
 	}
 	else { //есть оба ребенка
-
+		tree* succ = Next(tr, v->inf); //следующий за удаляемым узлом
+		v->inf = succ->inf;
+		if (succ->parent->left == succ) { //если succ левый ребенок
+			succ->parent->left == succ->right;
+			if (succ->right) //если этот ребенок существует
+				succ->right->parent = succ->parent; //его родителем становится "дед"
+		}
+		else { //аналогично если succ - правый ребенок
+			succ->parent->right == succ->right;
+			if (succ->right) //если этот ребенок существует
+				succ->right->parent = succ->parent; //его родителем становится "дед"
+		}
+		delete succ;
 	}
 }
 
@@ -114,4 +142,6 @@ int main() {
 	cout << "Введите количество элементов дерева: ";
 	cin >> n;
 	create(tr, n);
+	res(tr);
+	inorder(tr);
 }
