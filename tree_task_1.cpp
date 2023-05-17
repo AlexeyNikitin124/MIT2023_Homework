@@ -20,13 +20,6 @@ tree* node(int x) { //создание узла
 	return n;
 }
 
-void inorder(tree* tr) { //симметричный обход дерева
-	if (tr) {
-		inorder(tr->left);
-		cout << tr->inf;
-		inorder(tr->right);
-	}
-}
 
 void insert(tree*& tr, int x) { //вставка элемента в дерево
 	tree* n = node(x);
@@ -77,10 +70,13 @@ tree* Max(tree* tr) { //поиск максимального элемента
 
 tree* Next(tree* tr, int x) { //поиск следущего элемента дерева
 	tree* n = find(tr, x);
-	if (n->right)
-		return Min(n->right);
+	if (!n || n == Min(tr)) {
+		return nullptr;
+	}
+	if (n->left)
+		return Max(n->left);
 	tree* y = n->parent;
-	while (y && n == y->right) {
+	while (y && n == y->left) {
 		n = y;
 		y = y->parent;
 	}
@@ -89,8 +85,7 @@ tree* Next(tree* tr, int x) { //поиск следущего элемента �
 
 void Delete(tree*& tr, tree* v) { //удаление узла
 	tree* p = v->parent;
-	if (!p) { tr = NULL; } // дерево содержит один узел
-	else if (!v->left && !v->right) { //если нет детей
+	if (!v->left && !v->right) { //если нет детей
 		if (p->left == v) p->left = NULL;
 		if (p->right == v) p->right = NULL;
 		delete v;
@@ -128,16 +123,34 @@ void Delete(tree*& tr, tree* v) { //удаление узла
 		tree* succ = Next(tr, v->inf); //следующий за удаляемым узлом
 		v->inf = succ->inf;
 		if (succ->parent->left == succ) { //если succ левый ребенок
-			succ->parent->left == succ->right;
+			succ->parent->left = succ->right;
 			if (succ->right) //если этот ребенок существует
 				succ->right->parent = succ->parent; //его родителем становится "дед"
 		}
 		else { //аналогично если succ - правый ребенок
-			succ->parent->right == succ->right;
+			succ->parent->right = succ->right;
 			if (succ->right) //если этот ребенок существует
 				succ->right->parent = succ->parent; //его родителем становится "дед"
 		}
 		delete succ;
+	}
+}
+
+void result(tree*& tr) { //удаление четных элементов
+	if (tr) {
+		result(tr->right);
+		result(tr->left);
+		if (tr->inf % 2 == 0) {
+			Delete(tr, tr);
+		}
+	}
+}
+
+void obhod(tree* tr) { //симметричный обход дерева
+	if (tr) {
+		obhod(tr->left);
+		cout << tr->inf;
+		obhod(tr->right);
 	}
 }
 
@@ -153,4 +166,7 @@ int main() {
 		cin >> x;
 		insert(tr, x);
 	}
+
+	result(tr);
+	obhod(tr);
 }
