@@ -84,4 +84,18 @@ void inorder(tree* tr) { //симметричный обход дерева
 }
 
 int main() {
+	setlocale(LC_ALL, "RUS");
+	int n, x;
+	tree* tr = NULL;
+	cout << "Введите количество элементов дерева: ";
+	cin >> n;
+
+	cout << "Заполните бинарное дерево: \n";
+	for (int i = 0; i < n; ++i) {
+		cin >> x;
+		insert(tr, x);
+	}
+
+	cout << "Введите узел X: ";
+	cin >> x;
 }
