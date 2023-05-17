@@ -186,6 +186,18 @@ void print(tree* tr, int k) {
 	}
 }
 
+int count = 0;
+
+void result(tree* tr) { //подсчет количество листьев у дерева
+	if (tr) {
+		result(tr->right);
+		result(tr->left);
+		if (!tr->left && !tr->right) {
+			count++;
+		}
+	}
+}
+
 int main() {
 	setlocale(LC_ALL, "RUS");
 	int n, x;
@@ -195,4 +207,6 @@ int main() {
 
 	cout << "Заполните бинарное дерево: \n";
 	create(tr, n);
+	result(tr);
+	cout << count;
 }
