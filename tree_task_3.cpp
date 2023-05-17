@@ -187,4 +187,12 @@ void print(tree* tr, int k) {
 }
 
 int main() {
+	setlocale(LC_ALL, "RUS");
+	int n, x;
+	tree* tr = NULL;
+	cout << "Введите количество элементов дерева: ";
+	cin >> n;
+
+	cout << "Заполните бинарное дерево: \n";
+	create(tr, n);
 }
