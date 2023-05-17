@@ -20,16 +20,6 @@ tree* node(int x) { //создание узла
 	return n;
 }
 
-void res(tree* tr) { //симметричный обход дерева
-	if (tr) {
-		inorder(tr->left);
-		if (tr->inf % 2 == 0) {
-			Delete(tr, tr);
-		}
-		inorder(tr->right);
-	}
-}
-
 void inorder(tree* tr) { //симметричный обход дерева
 	if (tr) {
 		inorder(tr->left);
@@ -38,15 +28,31 @@ void inorder(tree* tr) { //симметричный обход дерева
 	}
 }
 
-void create(tree*& tr, int n) { //создание дерева
-	int x;
-	if (n > 0) {
-		cin >> x;
-		tr = node(x);
-		int nl = n / 2;
-		int nr = n - nl - 1;
-		create(tr->left, nl);
-		create(tr->right, nr);
+void insert(tree*& tr, int x) { //вставка элемента в дерево
+	tree* n = node(x);
+	if (!tr) tr = n; //если дерево пустое
+	else {
+		tree* y = tr;
+		while (y) { //ищем куда вставить
+			if (n->inf > y->inf) {
+				if (y->right)
+					y = y->right;
+				else {
+					n->parent = y;
+					y->right = n;
+					break;
+				}
+			}
+			else if (n->inf < y->inf) {
+				if (y->left)
+					y = y->left;
+				else {
+					n->parent = y;
+					y->left = n;
+					break;
+				}
+			}
+		}
 	}
 }
 
@@ -141,7 +147,10 @@ int main() {
 	tree* tr = NULL;
 	cout << "Введите количество элементов дерева: ";
 	cin >> n;
-	create(tr, n);
-	res(tr);
-	inorder(tr);
+
+	cout << "Заполните бинарное дерево: \n";
+	for (int i = 0; i < n; ++i) {
+		cin >> x;
+		insert(tr, x);
+	}
 }
