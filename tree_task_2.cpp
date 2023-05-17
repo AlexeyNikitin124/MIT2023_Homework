@@ -83,6 +83,19 @@ void inorder(tree* tr) { //симметричный обход дерева
 	}
 }
 
+void result(tree* tr) { //определение глубины узла
+	tree* p = tr;
+	int count = 0;
+	while (p) {
+		if (p->parent == nullptr) {
+			cout << count;
+			break;
+		}
+		count++;
+		p = Prev(p, p->inf);
+	}
+}
+
 int main() {
 	setlocale(LC_ALL, "RUS");
 	int n, x;
@@ -98,4 +111,7 @@ int main() {
 
 	cout << "Введите узел X: ";
 	cin >> x;
+
+	tree* p = find(tr, x);
+	result(p);
 }
