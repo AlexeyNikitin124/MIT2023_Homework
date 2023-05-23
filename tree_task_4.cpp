@@ -29,6 +29,21 @@ void create(tree*& tr, int n) { //создание идеально сбалан
 	}
 }
 
+int Depth(tree* tr, int x, int depth) { //определение глубины узла
+	if (tr == NULL) {
+		return -1; // узел не найден
+	}
+	if (tr->inf == x) {
+		return depth; // найден искомый узел
+	}
+	int leftDepth = Depth(tr->left, x, depth + 1); // ищем в левом поддереве
+	if (leftDepth != -1) {
+		return leftDepth; // узел найден в левом поддереве
+	}
+	int rightDepth = Depth(tr->right, x, depth + 1); // ищем в правом поддереве
+	return rightDepth; // возвращаем глубину из правого поддерева
+}
+
 int main() {
 	setlocale(LC_ALL, "RUS");
 	int n, x;
@@ -38,4 +53,14 @@ int main() {
 
 	cout << "Заполните бинарное дерево: \n";
 	create(tr, n);
+
+	cout << "Введите значение узла X: ";
+	cin >> x;
+	int depth = Depth(tr, x, 0);
+	if (depth == -1) {
+		cout << "Узел не найден в дереве";
+	}
+	else {
+		cout << "Глубина узла равна: "<< depth;
+	}
 }
