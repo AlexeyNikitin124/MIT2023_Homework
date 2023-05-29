@@ -3,6 +3,7 @@
 #include <map>
 #include <list>
 #include <fstream>
+#include <vector>
 
 using namespace std;
 
@@ -51,8 +52,25 @@ void print(map <int, list<int>> Graph) { // вывод списка смежно
     }
 }
 
+void DFS(map<int, list<int>> Graph, int x, vector <bool>& used) { // обход в глубину
+    used[x] = true;
+    for (auto it = Graph.begin(); it != Graph.end(); it++) {
+        if (it->first == x) {
+            list<int> a = it->second;
+            for (auto iter = a.begin(); iter != a.end(); iter++)
+                if (!used[*iter])
+                    DFS(Graph, *iter, used);
+            break;
+        }
+    }
+}
+
 int main() {
     setlocale(LC_ALL, "RUS");
     map <int, list<int>> Graph = graph(0);
     print(Graph);
+
+
+    vector<bool> used(Graph.size(), false);
+    DFS(Graph, 0, used);
 }
