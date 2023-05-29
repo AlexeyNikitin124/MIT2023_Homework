@@ -45,5 +45,30 @@ map<int, list<int>> graph(bool oriented) { //создание списка см�
 int main() {
     setlocale(LC_ALL, "RUS");
     map <int, list<int> > Graph = graph(0);
+    int a, b;
+    for (auto it = Graph.begin(); it != Graph.end(); it++) {
+        cout << "Вершина " << it->first << ": ";
+        list<int> a = it->second;
+        for (auto iter = a.begin(); iter != a.end(); iter++)
+            cout << *iter << " ";
+        cout << endl;
+    }
+    cout << "Введите вершину А: ";
+    cin >> a;
+    cout << "Введите вершину B: ";
+    cin >> b;
+
+    for (auto it = Graph.begin(); it != Graph.end(); it++) {
+        if (it->first == a) {
+            auto iter = find(it->second.begin(), it->second.end(), b);
+            if (iter != it->second.end())
+                it->second.remove(b);
+        }
+        else if (it->first == b) {
+            auto iter = find(it->second.begin(), it->second.end(), a);
+            if (iter != it->second.end())
+                it->second.remove(a);
+        }
+    }
     return 0;
 }
