@@ -70,7 +70,15 @@ int main() {
     map <int, list<int>> Graph = graph(0);
     print(Graph);
 
-
     vector<bool> used(Graph.size(), false);
     DFS(Graph, 0, used);
+
+    //определяем, является ли граф связным
+    for (auto it = Graph.begin(); it != Graph.end(); it++) {
+        if (used[it->first] == 0) {
+            cout << "\nГраф не является связным";
+            return 0;
+        }
+    }
+    cout << "\nГраф является связным";
 }
