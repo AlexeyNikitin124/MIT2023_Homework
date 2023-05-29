@@ -4,6 +4,7 @@
 #include <map>
 #include <list>
 #include <fstream>
+#include <algorithm>
 
 using namespace std;
 
@@ -42,10 +43,7 @@ map<int, list<int>> graph(bool oriented) { //создание списка см�
     return res;
 }
 
-int main() {
-    setlocale(LC_ALL, "RUS");
-    map <int, list<int> > Graph = graph(0);
-    int a, b;
+void print(map <int, list<int>> Graph) { // вывод списка смежности на экран
     for (auto it = Graph.begin(); it != Graph.end(); it++) {
         cout << "Вершина " << it->first << ": ";
         list<int> a = it->second;
@@ -53,11 +51,19 @@ int main() {
             cout << *iter << " ";
         cout << endl;
     }
+}
+
+int main() {
+    setlocale(LC_ALL, "RUS");
+    map <int, list<int>> Graph = graph(0);
+    print(Graph);
+    int a, b;
     cout << "Введите вершину А: ";
     cin >> a;
     cout << "Введите вершину B: ";
     cin >> b;
 
+    // удаление ребра графа
     for (auto it = Graph.begin(); it != Graph.end(); it++) {
         if (it->first == a) {
             auto iter = find(it->second.begin(), it->second.end(), b);
@@ -70,5 +76,7 @@ int main() {
                 it->second.remove(a);
         }
     }
+
+    print(Graph);
     return 0;
 }
