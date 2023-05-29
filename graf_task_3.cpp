@@ -55,4 +55,10 @@ int main() {
     setlocale(LC_ALL, "RUS");
     map <int, list<int>> Graph = graph(1);
     print(Graph);
+
+    cout << "\nКоличество полустепеней исхода каждой вершины: ";
+    for (auto it = Graph.begin(); it != Graph.end(); it++) { 
+        cout << "\nВершина " << it->first << ": ";
+        cout << it->second.size();
+    }
 }
