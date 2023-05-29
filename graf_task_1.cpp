@@ -43,4 +43,12 @@ map<int, list<int>> graph(bool oriented) { //создание списка см�
 }
 
 int main() {
+    setlocale(LC_ALL, "RUS");
+    map <int, list<int> > Graph = graph(0);
+    int peak;
+    cout << "Введите вершину: ";
+    cin >> peak;
+    cout << "Количество смежных вершин:";
+    cout << Graph[peak].size();
+    return 0;
 }
