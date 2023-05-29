@@ -58,25 +58,34 @@ int main() {
     map <int, list<int>> Graph = graph(0);
     print(Graph);
     int a, b;
-    cout << "Введите вершину А: ";
+    cout << "\nВведите вершину А: ";
     cin >> a;
     cout << "Введите вершину B: ";
     cin >> b;
+    cout << endl;
 
+    bool A = 0, B = 0;
     // удаление ребра графа
     for (auto it = Graph.begin(); it != Graph.end(); it++) {
         if (it->first == a) {
+            A = 1;
             auto iter = find(it->second.begin(), it->second.end(), b);
             if (iter != it->second.end())
                 it->second.remove(b);
         }
         else if (it->first == b) {
+            B = 1;
             auto iter = find(it->second.begin(), it->second.end(), a);
             if (iter != it->second.end())
                 it->second.remove(a);
         }
     }
 
-    print(Graph);
+    if (A == 0 || B == 0) {
+        cout << "Некорректно введены вершины";
+    }
+    else {
+        print(Graph);
+    }
     return 0;
 }
