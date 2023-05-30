@@ -4,6 +4,7 @@
 #include <list>
 #include <fstream>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -49,6 +50,51 @@ void print(map <int, list<int>> Graph) { // вывод списка смежно
         for (auto iter = a.begin(); iter != a.end(); iter++)
             cout << *iter << " ";
         cout << endl;
+    }
+}
+
+//обход графа в ширину
+void BFS(map<int, list<int>> Graph, vector <int>& sources, vector<bool>& used) {
+    queue<int> q;
+
+    for (auto it = Graph.begin(); it != Graph.end(); it++) {
+        int x = it->first;
+        if (!used[x]) {
+            q.push(x);
+            used[x] = true;
+
+            while (!q.empty()) {
+                int p = q.front();
+                q.pop();
+
+                bool flag = false;
+                for (auto it2 = Graph.begin(); it2 != Graph.end(); it2++) {
+                    if (it2->second.size() > 0) {
+                        for (auto iter = it2->second.begin(); iter != it2->second.end(); iter++) {
+                            if (*iter == p) {
+                                flag = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (flag) {
+                        break;
+                    }
+                }
+
+                if (!flag) {
+                    sources.push_back(p);
+                }
+
+                for (auto iter = Graph[p].begin(); iter != Graph[p].end(); iter++) {
+                    int v = *iter;
+                    if (!used[v]) {
+                        q.push(v);
+                        used[v] = true;
+                    }
+                }
+            }
+        }
     }
 }
 
