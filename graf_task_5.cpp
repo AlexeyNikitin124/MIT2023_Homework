@@ -54,7 +54,7 @@ void print(map <int, list<int>> Graph) { // вывод списка смежно
 }
 
 //обход графа в ширину
-void BFS(map<int, list<int>> Graph, vector <int>& sources, vector<bool>& used) {
+void BFS(map<int, list<int>> Graph, vector <int>& sources,  vector<bool>& used) {
     queue<int> q;
 
     for (auto it = Graph.begin(); it != Graph.end(); it++) {
@@ -102,4 +102,14 @@ int main() {
     setlocale(LC_ALL, "RUS");
     map <int, list<int>> Graph = graph(1);
     print(Graph);
+
+    vector<bool> used(Graph.size(), false);
+
+    vector <int> sources;
+    BFS(Graph, sources, used);
+
+    cout << "\nИстоками графа являются: ";
+    for (auto i : sources) {
+        cout << i << ' ';
+    }
 }
