@@ -42,13 +42,30 @@ map<int, list<int>> graph(bool oriented) { //создание списка см�
     return res;
 }
 
+void print(map <int, list<int>> Graph) { // вывод списка смежности на экран
+    for (auto it = Graph.begin(); it != Graph.end(); it++) {
+        cout << "Вершина " << it->first << ": ";
+        list<int> a = it->second;
+        for (auto iter = a.begin(); iter != a.end(); iter++)
+            cout << *iter << " ";
+        cout << endl;
+    }
+}
+
 int main() {
     setlocale(LC_ALL, "RUS");
     map <int, list<int> > Graph = graph(0);
     int peak;
     cout << "Введите вершину: ";
     cin >> peak;
-    cout << "Количество смежных вершин:";
-    cout << Graph[peak].size();
+
+    for (auto it = Graph.begin(); it != Graph.end(); it++) {
+        if (it->first != peak) {
+            auto iter = find(it->second.begin(), it->second.end(), peak);
+            if (iter == it->second.end()) {
+                cout << it->first << ' ';
+            }
+        }
+    }
     return 0;
 }
